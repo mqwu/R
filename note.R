@@ -12,3 +12,13 @@
  ## Change Repositories (Packages source)
   # 1. chooseCRANmirror() 
   # 2. pick one...
+  
+ ### Matrix Operation
+  
+ ## Delete a row in a matrix
+ a = matrix(1:100, nc=5)
+ b = a[-5,]
+ 
+ # delete row 5 and 7
+ ind=c(5,7)
+ d = a[-ind, ]
