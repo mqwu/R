@@ -53,6 +53,7 @@
  # Target: "C:\Program Files (x86)\R\R-3.0.2\bin\i386\Rterm.exe" --file="run1.R"
  # Start in: .\appfolder\src\
  
+ # http://rstudio-pubs-static.s3.amazonaws.com/3269_a6682dfda37e411fb5e0e6699495cdc4.html
  
  
  
