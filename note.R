@@ -37,7 +37,7 @@
  # 2. Create two run files (run1.R, run2.R) in  
  #    ./appfolder/src/
  #    with code below
-  .libPaths(unique(c("./lib",.libPaths())))
+  .libPaths(unique(c("../lib",.libPaths())))
   library(shiny)
  
   if (file.exists ("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")) {
@@ -46,8 +46,8 @@
     options(browser = "C:/Program Files/Google/Chrome/Application/chrome.exe")
   }
 
-  runApp('C:/Apps/projects/TED/SampleSize/src/app1', launch.browser=TRUE) # run1.R
- #runApp('C:/Apps/projects/TED/SampleSize/src/app2', launch.browser=TRUE) # run2.R
+  runApp('C:/Apps/SampleSize/src/app1', launch.browser=TRUE) # run1.R
+ #runApp('C:/Apps/SampleSize/src/app2', launch.browser=TRUE) # run2.R
  
  # 3. Creat R shell short cut under ./appfolder/ and modify its properties (e.g. app1)
  # Target: "C:\Program Files (x86)\R\R-3.0.2\bin\i386\Rterm.exe" --file="run1.R"
