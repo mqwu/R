@@ -21,6 +21,10 @@
  # Change Repositories (Packages source)
  # 1. chooseCRANmirror() 
  # 2. pick one...
+ # note: 
+ # When you install the package using the RStudio package installer or directly from CRAN, 
+ # it doesn't install the dependencies and hence, R keeps throwing the load namespace error.
+ # Solution: install.packages("forecast", repos=c("http://rstudio.org/_packages", "http://cran.rstudio.com"))
   
  
  # Matrix Operation
