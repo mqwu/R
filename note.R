@@ -111,3 +111,7 @@
  # --------------------------------------------------------------------------------------
  http://amplab-extras.github.io/SparkR-pkg/
  
+ # Correlation plot
+ # --------------------------------------------------------------------------------------
+ http://www.sthda.com/english/wiki/visualize-correlation-matrix-using-correlogram
+ 
