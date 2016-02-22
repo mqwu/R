@@ -25,13 +25,13 @@ x1 <- 1:5; x2 <- 2:6
 
 # arrange
 fligth %>% 
-		select(v1, v2) %>%
-		arrange(desc(v2))
+	select(v1, v2) %>%
+	arrange(desc(v2))
 		
 # mutate
 flight <- fligth %>% 
-			select(v1, v2) %>%
-			mutate(v3=v1+v2)  # not necessary select variables first
+		select(v1, v2) %>%
+		mutate(v3=v1+v2)  # not necessary select variables first
 
 # summarise			
 ## summarise avg delay by destination
@@ -41,14 +41,14 @@ flights %>%
 
 ## n()	
 flight %>%
-		group_by(Month, DayofMonth) %>%
-		summarise(flight_count=n()) %>%  #n()
-		arrange(desc(flight_count))
+	group_by(Month, DayofMonth) %>%
+	summarise(flight_count=n()) %>%  #n()
+	arrange(desc(flight_count))
 
 # tally (equivalent to above, count each group)
 flight %>%
-		group_by(Month, DayofMonth) %>%
-		tally(sort=TRUE)  # create a variable named n
+	group_by(Month, DayofMonth) %>%
+	tally(sort=TRUE)  # create a variable named n
 
 # n_distinct
 flights %>%
@@ -58,13 +58,13 @@ flights %>%
 # summarise_each 
 # allows to apply the same summary function to multiple cols
 flights %>%
-		group_by(v1) %>%
-		summarise_each(funs(mean), Cancelled, Diverted)
+	group_by(v1) %>%
+	summarise_each(funs(mean), Cancelled, Diverted)
 		
 flights %>%
-		group_by(UniqueCarrier) %>%
-		summarise_each(funs(min(., na.rm=TRUE), max(., na.rm=TRUE)),
-		matches("Delay"))  # variable names contains delay
+	group_by(UniqueCarrier) %>%
+	summarise_each(funs(min(., na.rm=TRUE), max(., na.rm=TRUE)),
+	matches("Delay"))  # variable names contains delay
 	
 # use other R base function for group
 flights %>%
