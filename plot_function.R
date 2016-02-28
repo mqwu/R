@@ -221,7 +221,8 @@ idw <- function(z,distance,k,num.neighs){
 
 #---------------------------------------------------------------------------------------------------------------------
 
-plotXYScatter <- function(dat, xlab="", ylab="", title=NULL, xlim=NULL, ylim=NULL, reg=FALSE, regcol="blue", size=4, color="black"){
+plotXYScatter <- function(dat, xlab="", ylab="", title=NULL, xlim=NULL, ylim=NULL, 
+                          reg=FALSE, regcol="blue", size=4, color="black", text=data.frame(x=NULL, y=NULL, string=NULL)){
   ## Scatter plot for bivariates with/without regression line  
   #
   # Args:
@@ -234,6 +235,7 @@ plotXYScatter <- function(dat, xlab="", ylab="", title=NULL, xlim=NULL, ylim=NUL
   #   regcol: regression line color
   #   size: point size
   #   color: point color
+  #   text: annotation text, eg. x=0, y=0, string="stat" 
   #
   # Returns:
   #   Scatter plot object for bivariates with/without regression line  
@@ -263,6 +265,10 @@ plotXYScatter <- function(dat, xlab="", ylab="", title=NULL, xlim=NULL, ylim=NUL
             plot.title = element_text(size = 22, face = "bold", colour = "black")
   )
   
+  if(!is.null(text$string)){
+    g <- g + annotate("text", x=text$x, y=text$y, label=paste0("Corr=",text$string), size=7, fontface="bold")
+  }
+
   return(g)
 }
 
