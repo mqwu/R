@@ -58,6 +58,7 @@ summarise(fliter(by_date, !is.na(dep_delay)),  # 1st filter na rows, then summar
 		max = max(dep_delay),
 		q90 = quantile(dep_delay, 0.9),
 		over_15 = mean(dep_delay > 15, na.rm=TRUE))
+# ctrl+shift+p in RStudio rerun previous submitted code
 
 ## min(x), median(x, na.rm=TRUE), max(x), quantile(x,p), sd(x), var(x), IQR(x)
 ## sum(x), mean(x), n(), n_distinct(x)
