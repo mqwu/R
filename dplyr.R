@@ -12,33 +12,56 @@ glimpse(mammals)  # look at data in a transpose view
 fliter(flights, Month==1, DayofMonth==1)  # M==1& DayofM==1
 fliter(flights, Month==1|Month==2)  # M==1 or 2
 fliter(flights, Month %in% c(1,2))  # M==1 or 2
+fliter(flights, hour >= 0, hour <= 5)  # common represent "And"
+fliter(flights, delay_time >= 2*delay_min)  # common represent "And"
+fliter(flights, !is.na(dep_delay))  # filter na rows
 
 # select cols
 select(flight, v1, v2, v3)
 select(flight, v1:v3)
 select(flight, v1:v10, contains("Taxi"), contains("Deylay"))
-# starts_with, ends_with, matches for regular expressions
+select(flight, ends_with("delay"))
+# starts_with, ends_with, contains, matches, num_range, one_of("x","y","z"), everything()
+
 
 # chain
 x1 <- 1:5; x2 <- 2:6
 (x1-x2)^2 %>% sum() %>% sqrt()  # chain
 
 # arrange
-fligth %>% 
+flight %>% 
 	select(v1, v2) %>%
 	arrange(desc(v2))
+	
+flight %>% arrange(data, hour, minute)
+
+flight %>% arrange(desc(departure_delay-arrival_delay))
 		
 # mutate
 flight <- fligth %>% 
 		select(v1, v2) %>%
-		mutate(v3=v1+v2)  # not necessary select variables first
+		mutate(v3=v1+v2, v4=v3*2)  # not necessary select variables first, can use new created variable
 
 # summarise			
 ## summarise avg delay by destination
 flights %>%
 	group_by(Dest) %>%
 	summarise(avg_delay = mean(ArrDelay, na.rm=TRUE))
+	
+by_date <- group_by(flights, date)
+by_hour <- group_by(flights, date, hour)
+by_plane <- group_by(flights, plane)  # grouping does not create a copy of the data
 
+summarise(fliter(by_date, !is.na(dep_delay)),  # 1st filter na rows, then summarise
+		med = median(dep_delay, na.rm=TRUE),
+		mean = mean(dep_delay),
+		max = max(dep_delay),
+		q90 = quantile(dep_delay, 0.9),
+		over_15 = mean(dep_delay > 15, na.rm=TRUE))
+
+## min(x), median(x, na.rm=TRUE), max(x), quantile(x,p), sd(x), var(x), IQR(x)
+## sum(x), mean(x), n(), n_distinct(x)
+## sum(x>10), mean(x>10)  # logical summarry
 ## n()	
 flight %>%
 	group_by(Month, DayofMonth) %>%
