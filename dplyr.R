@@ -22,6 +22,7 @@ select(flight, v1:v3)
 select(flight, v1:v10, contains("Taxi"), contains("Deylay"))
 select(flight, ends_with("delay"))
 # starts_with, ends_with, contains, matches, num_range, one_of("x","y","z"), everything()
+select(flight, v_new=v1, v_old=v2, v3) # using select to rename variables
 
 
 # chain
@@ -42,10 +43,11 @@ flight <- fligth %>%
 		select(v1, v2) %>%
 		mutate(v3=v1+v2, v4=v3*2)  # not necessary select variables first, can use new created variable
 
-# summarise			
+# summarise
+# aggregation function: n inputs -> 1 output
 ## summarise avg delay by destination
 flights %>%
-	group_by(Dest) %>%
+	group_by(Dest) %>%  # group_by does not create a copy of data and change the order of the data
 	summarise(avg_delay = mean(ArrDelay, na.rm=TRUE))
 	
 by_date <- group_by(flights, date)
@@ -97,7 +99,13 @@ flights %>%
 	table() %>% 
 	head()
 	
-# window function: take n inputs and returns n values
+# window function: take n inputs -> n outputs
+# 1.ranking and ordering:
+# min_rank(c(1,1,2,3) [1] 1 1 3 4  # ordinary ranking
+# dense_rank(c(1,1,2,3) [1] 1 1 2 4 # no duplicate count for tie number in ranking
+# row_number(c(1,1,2,3) [1] 1 2 3 4 # ignore tie and give ranking
+# 2. offsets: lead & lag
+# 3. cumulative aggregates
 ## min_rank/top_n
 flights %>%
 	group_by(UniqueCarrier) %>%
@@ -119,5 +127,18 @@ flights %>%
 # sampling
 flights %>% sample_n(5)
 flights %>% sample_frac(0.25, replace=TRUE)
+
+# do()
+df %>% group_by(ID) %>% do(na.locf(.))
+
+df %>% group_by(ID) %>% do(data.frame(year=.$year[1])
+
+df %>% group_by(ID) %>% do(head(.,2))
+
+models <- dat %>% group_by(date) %>% 
+	do(
+		mod = lm(dep_delay ~ time, data=.)
+	)
+	
 
 
