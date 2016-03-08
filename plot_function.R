@@ -310,4 +310,15 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   }
 }
 
+#---------------------------------------------------------------------------------------------------------------------
+# tornado plot example
+dat <- data.frame(
+     Age= c("a","b","c","d","e","f","g","h","i","j","k","l"),
+     Sex= c("a","b","c","d","e","f","g","h","i","j","k","l"),
+     value=c(.2,.3,.4,.1,.05, .04, -.24,-.28,-.29,-.12,-.06, -.03)
+)
+
+ggplot(dat, aes(x=Age, y=value, fill=Sex)) + 
+     geom_bar(stat="identity", position="identity") +  # error if stat = not included.
+     coord_flip()
 
