@@ -139,6 +139,39 @@ models <- dat %>% group_by(date) %>%
 	do(
 		mod = lm(dep_delay ~ time, data=.)
 	)
-	
+
+
+# plot by group
+library(dplyr)
+library(ggplot2)
+library(scales) 
+
+setClass("toDate")
+setAs("character", "toDate", function(from) as.Date(from, format="%m/%d/%Y"))
+
+d <- read.csv("Bukom Thickness PSI data_FS.csv", header=TRUE, colClasses=c("Sent.Time"="toDate"))
+d <- d[, c(1,3,4)]
+names(d) <- c("ID", "Time", "UTMeasurement")
+
+by_id <- group_by(d, ID)  # group data by ID
+
+stat <- summarise(filter(by_id, !is.na(UTMeasurement)),  # summary statistics
+                    n = n(),
+                    min = min(UTMeasurement),
+                    max = max(UTMeasurement),
+                    mean = mean(UTMeasurement),
+                    median = median(UTMeasurement),
+                    sd = sd(UTMeasurement),
+                    p80 = quantile(UTMeasurement, 0.8),
+                    p85 = quantile(UTMeasurement, 0.85),
+                    p90 = quantile(UTMeasurement, 0.9),
+                    p95 = quantile(UTMeasurement, 0.95)
+                  )
+
+by_id %>% filter(!is.na(UTMeasurement)) %>%  
+          do({ 
+          	p <- ggplot(data=., aes(x=Time, y=UTMeasurement)) + geom_point() + scale_x_date(labels = date_format("%m/%d/%y")) + ggtitle(unique(.$ID)) 
+        	ggsave(p, filename=paste0(unique(.$ID),".png"))
+            })
 
 
