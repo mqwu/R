@@ -9,12 +9,12 @@ data.frame(head(flights))  # convert to a normal data frame to see all of vars
 glimpse(mammals)  # look at data in a transpose view
 
 # filter rows
-fliter(flights, Month==1, DayofMonth==1)  # M==1& DayofM==1
-fliter(flights, Month==1|Month==2)  # M==1 or 2
-fliter(flights, Month %in% c(1,2))  # M==1 or 2
-fliter(flights, hour >= 0, hour <= 5)  # common represent "And"
-fliter(flights, delay_time >= 2*delay_min)  # common represent "And"
-fliter(flights, !is.na(dep_delay))  # filter na rows
+filter(flights, Month==1, DayofMonth==1)  # M==1& DayofM==1
+filter(flights, Month==1|Month==2)  # M==1 or 2
+filter(flights, Month %in% c(1,2))  # M==1 or 2
+filter(flights, hour >= 0, hour <= 5)  # common represent "And"
+filter(flights, delay_time >= 2*delay_min)  # common represent "And"
+filter(flights, !is.na(dep_delay))  # filter na rows
 
 # select cols
 select(flight, v1, v2, v3)
