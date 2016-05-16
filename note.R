@@ -7,6 +7,13 @@
  # Wickham (RStudio)
  http://adv-r.had.co.nz/Style.html#undefined
  
+ # Save/load workspace; Save object
+ #-----------------------------------------------------------
+ save.image(file="./xx/a.RData")
+ load("./xx/a.RData")
+ 
+ saveRDS(obj, "obj.rds")
+ obj.new <- readRDS("obj.rds") # can assign to a new obj name
  
  # R Startup Setting 
  # ----------------------------------------------------------
