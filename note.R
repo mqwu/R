@@ -34,6 +34,12 @@
  # Solution: install.packages("forecast", repos=c("http://rstudio.org/_packages", "http://cran.rstudio.com"))
   
  
+ # Load data & clean name
+ d <- read.csv("./data/Gas_Engine.csv", header=T, as.is=T)
+ colnames(d) <- gsub("\\.+", ".", colnames(d))
+ colnames(d) <- gsub("\\.$", "", colnames(d))
+
+
  # Matrix Operation
  # ---------------------------------------------------------
  # Delete a row in a matrix
