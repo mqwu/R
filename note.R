@@ -128,3 +128,61 @@
  # --------------------------------------------------------------------------------------
  http://www.sthda.com/english/wiki/visualize-correlation-matrix-using-correlogram
  
+
+# Data Structure
+# 1D: atomic vector and list
+# 2D: matrix
+# 3D+: array
+# Data frame:  a list of equal-length vectors
+#----------------------------------------------------------------------------------------
+# 1D : atomic vector and list
+# You construct lists by using list() instead of c()
+x <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.3, 5.9))
+
+# factor
+# Factors are useful when you know the possible values a variable may take, 
+# Factors are built on top of integer vectors using two attributes: class(),levels()
+x <- factor(c("a", "b", "b", "a"))
+sex_char <- c("m", "m", "m")
+sex_factor <- factor(sex_char, levels = c("m", "f"))
+table(sex_factor)
+#> sex_factor
+#> m f 
+#> 3 0
+a <- read.csv(file, stringsAsFactors = FALSE )
+
+# add attribute to a vector
+structure(1:5, aaa="c")
+
+# matrix(2D) and array (nD)
+a <- matrix(1:6, ncol = 3, nrow = 2)
+b <- array(1:12, c(2, 3, 2))
+b
+#, , 1
+#     [,1] [,2] [,3]
+#[1,]    1    3    5
+#[2,]    2    4    6
+#, , 2
+#     [,1] [,2] [,3]
+#[1,]    7    9   11
+#[2,]    8   10   12
+dimnames(b) <- list(c("one", "two"), c("a", "b", "c"), c("A", "B"))
+
+#the dimension attribute can also be set on lists to make list-matrices or list-arrays:
+l <- list(1:3, "a", TRUE, 1.0)
+dim(l) <- c(2, 2)
+
+# data frame
+df <- data.frame(x = 1:3, y = c("a", "b", "c"))
+
+df <- data.frame(
+  x = 1:3,
+  y = c("a", "b", "c"), # default will turn string into factor
+  stringsAsFactors = FALSE)
+
+# You can combine data frames using cbind() and rbind():
+cbind(df, data.frame(z = 3:1))
+rbind(df, data.frame(x = 10, y = "z")) # col name must match
+
+
+
