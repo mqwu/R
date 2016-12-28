@@ -185,4 +185,67 @@ cbind(df, data.frame(z = 3:1))
 rbind(df, data.frame(x = 10, y = "z")) # col name must match
 
 
+# Subsetting
+#---------------------------------------------------------------
+# Subsetting a list works in the same way as subsetting an atomic vector. 
+# Using [ will always return a list; [[ and $, as described below, let you pull out the components of the list.
+# $ = [[
+# x$y is the same as x[["y", exact=F]]
+var <- "cyl"
+# Doesn't work - mtcars$var translated to mtcars[["var"]]
+mtcars$var
+#> NULL
+
+# Instead use [[
+mtcars[[var]]
+
+#S3 objects are made up of atomic vectors, arrays, and lists
+#S4 objects: @ (equivalent to $), and slot() (equivalent to [[). @ is more restrictive than $ in that it will return an error if the slot does not exist.
+#If list x is a train carrying objects, then x[[5]] is the object in car 5; x[4:6] is a train of cars 4-6.
+
+# Data frame: if output is a single column, returns a vector instead of a data frame.
+str(df[, "a", drop = FALSE])
+#> 'data.frame':    2 obs. of  1 variable:
+#>  $ a: int  1 2
+str(df[, "a"])
+#>  int [1:2] 1 2
+
+#lookup table
+grades <- c(1, 2, 2, 3, 1)
+
+info <- data.frame(
+  grade = 3:1,
+  desc = c("Excellent", "Good", "Poor"),
+  fail = c(F, F, T)
+)
+
+# Using match
+id <- match(grades, info$grade)
+info[id, ]
+
+#samples/bootstrap
+# Randomly reorder
+df[sample(nrow(df)), ]
+# Select 3 random rows
+df[sample(nrow(df), 3), ]
+# Select 6 bootstrap replicates
+df[sample(nrow(df), 6, rep = T), ]
+
+#order() takes a vector as input and returns an integer vector describing how the subsetted vector should be ordered
+#sort return the same type of as input
+x <- c("b", "c", "a")
+order(x)
+#> [1] 3 1 2
+x[order(x)]
+#> [1] "a" "b" "c"
+
+#If you know the columns you don’t want, use set operations to work out which colums to keep:
+df[setdiff(names(df), "z")]
+
+#Remember to use the vector boolean operators & and |, not the short-circuiting scalar operators && and || which are more useful inside if statements.
+mtcars[mtcars$gear == 5 & mtcars$cyl == 4, ]
+subset(mtcars, gear == 5 & cyl == 4)
+#which() allows you to convert a boolean representation to an integer representation
+#Give the TRUE indices of a logical object
+#which(x, arr.ind = FALSE, useNames = TRUE)
 
