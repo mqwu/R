@@ -249,3 +249,7 @@ subset(mtcars, gear == 5 & cyl == 4)
 #Give the TRUE indices of a logical object
 #which(x, arr.ind = FALSE, useNames = TRUE)
 
+# <- 
+# <<-
+http://stackoverflow.com/questions/10904124/global-and-local-variables-in-r
+
