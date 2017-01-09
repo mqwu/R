@@ -253,3 +253,6 @@ subset(mtcars, gear == 5 & cyl == 4)
 # <<-
 http://stackoverflow.com/questions/10904124/global-and-local-variables-in-r
 
+# apply function
+http://stackoverflow.com/questions/3505701/r-grouping-functions-sapply-vs-lapply-vs-apply-vs-tapply-vs-by-vs-aggrega
+
