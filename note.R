@@ -257,6 +257,7 @@ http://stackoverflow.com/questions/10904124/global-and-local-variables-in-r
 http://stackoverflow.com/questions/3505701/r-grouping-functions-sapply-vs-lapply-vs-apply-vs-tapply-vs-by-vs-aggrega
 
 # seq
+#---------------------------------------------------------------
 seq(1, 10, length.out=5)
 [1]  1.00  3.25  5.50  7.75 10.00
 > seq(1, 10, by=5)
@@ -267,3 +268,83 @@ seq_along(a)
 seq_len(10)
 # [1]  1  2  3  4  5  6  7  8  9 10
 
+# tidyverse
+#ggplot2, for data visualisation.
+#dplyr, for data manipulation.
+#tidyr, for data tidying.
+#readr, for data import.
+#purrr, for functional programming.
+#tibble, for tibbles, a modern re-imagining of data frames.
+#---------------------------------------------------------------
+install.packages("tidyverse")
+library(tidyverse)
+#plot
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+
+ggplot(data = mpg) + 
+  geom_point(aes(x = displ, y = hwy, color=size)) # size=class alpha=class shape=class
+
+ggplot(data = mpg) + 
+  geom_point(aes(x = displ, y = hwy), color="blue") # size=class alpha=class shape=class
+
+# facet plot
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+# by 2 vars
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
+
+#geom
+# left
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+
+# right
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+
+# multiple geom
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+
+# global mapping & local mapping
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth()
+
+# global data & local data
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
+
+# bar stat=count as y
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
+
+# bar  y=var in data
+demo <- tribble(
+  ~a,      ~b,
+  "bar_1", 20,
+  "bar_2", 30,
+  "bar_3", 40
+)
+
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = a, y = b), stat = "identity")
+
+# proportion as y
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
+
+# summary
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.ymin = min,
+    fun.ymax = max,
+    fun.y = median
+  )
