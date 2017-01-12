@@ -256,3 +256,14 @@ http://stackoverflow.com/questions/10904124/global-and-local-variables-in-r
 # apply function
 http://stackoverflow.com/questions/3505701/r-grouping-functions-sapply-vs-lapply-vs-apply-vs-tapply-vs-by-vs-aggrega
 
+# seq
+seq(1, 10, length.out=5)
+[1]  1.00  3.25  5.50  7.75 10.00
+> seq(1, 10, by=5)
+[1] 1 6
+a <- rnorm(10)
+seq_along(a)
+# [1]  1  2  3  4  5  6  7  8  9 10
+seq_len(10)
+# [1]  1  2  3  4  5  6  7  8  9 10
+
