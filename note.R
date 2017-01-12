@@ -267,6 +267,9 @@ seq_along(a)
 # [1]  1  2  3  4  5  6  7  8  9 10
 seq_len(10)
 # [1]  1  2  3  4  5  6  7  8  9 10
+# with () print to the screen automatically
+(y <- seq(1, 10, length.out=3))
+
 
 # tidyverse
 #ggplot2, for data visualisation.
@@ -348,3 +351,156 @@ ggplot(data = diamonds) +
     fun.ymax = max,
     fun.y = median
   )
+
+# data transformation
+filter(flights, month == 11 | month == 12)
+nov_dec <- filter(flights, month %in% c(11, 12))
+
+# filter
+#filter() only includes rows where the condition is TRUE; it excludes both FALSE and NA values. If you want to preserve missing values, ask for them explicitly:
+ filter(df, is.na(x) | x > 1)
+
+# arrange
+arrange(flights, year, month, day)
+arrange(flights, desc(arr_delay))
+
+# select
+select(flights, year, month, day)
+select(flights, year:day)
+select(flights, -(year:day))
+
+#There are a number of helper functions you can use within select():
+#starts_with("abc"): matches names that begin with “abc”.
+#ends_with("xyz"): matches names that end with “xyz”.
+#contains("ijk"): matches names that contain “ijk”.
+
+# move timer_hour, air_time to the start of the data
+select(flights, time_hour, air_time, everything())
+
+# rename
+rename(flights, tail_num = tailnum)
+
+# mutate
+mutate(flights_sml,
+  gain = arr_delay - dep_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours
+)
+
+# transmute: only want to keep the new variables
+transmute(flights,
+  gain = arr_delay - dep_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours
+)
+
+# %/% integer division %% remainder
+transmute(flights,
+  dep_time,
+  hour = dep_time %/% 100,
+  minute = dep_time %% 100
+)
+#> # A tibble: 336,776 × 3
+#>   dep_time  hour minute
+#>      <int> <dbl>  <dbl>
+#> 1      517     5     17
+#> 2      533     5     33
+#> 3      542     5     42
+#> 4      544     5     44
+
+# summarise
+# The last key verb is summarise(). It collapses a data frame to a single row
+# summarise() is not terribly useful unless we pair it with group_by()
+summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
+
+by_dest <- group_by(flights, dest)
+delay <- summarise(by_dest,
+  count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE)
+)
+
+# pipe
+delays <- flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(count > 20, dest != "HNL")
+
+# missing value
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay, na.rm = TRUE))
+
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay))
+
+# count
+# a count (n()), or a count of non-missing values (sum(!is.na(x)))
+# n_distinct(carrier)
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarise(
+    delay = mean(arr_delay, na.rm = TRUE),
+    n = n()
+  )
+
+delays %>% 
+  filter(n > 25) %>% 
+  ggplot(mapping = aes(x = n, y = delay)) + 
+    geom_point(alpha = 1/10)
+
+# Counts and proportions of logical values: sum(x > 10), mean(y == 0). 
+# When used with numeric functions, TRUE is converted to 1 and FALSE to 0. 
+# This makes sum() and mean() very useful: sum(x) gives the number of TRUEs in x, and mean(x) gives the proportion.
+
+# How many flights left before 5am? (these usually indicate delayed
+# flights from the previous day)
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(n_early = sum(dep_time < 500))
+
+# What proportion of flights are delayed by more than an hour?
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(hour_perc = mean(arr_delay > 60))
+
+# When you group by multiple variables, each summary peels off one level of the grouping. 
+# That makes it easy to progressively roll up a dataset:
+daily <- group_by(flights, year, month, day)
+(per_day   <- summarise(daily, flights = n()))
+(per_month <- summarise(per_day, flights = sum(flights)))
+(per_year  <- summarise(per_month, flights = sum(flights)))
+
+# ungroup()
+# If you need to remove grouping, and return to operations on ungrouped data, use ungroup().
+daily %>% 
+  ungroup() %>%             # no longer grouped by date
+  summarise(flights = n())  # all flights
+
+# grouped mutate and filter
+#Grouping is also do convenient operations with mutate() and filter():
+
+flights_sml %>% 
+  group_by(year, month, day) %>%
+  filter(rank(desc(arr_delay)) < 10)
+
+popular_dests <- flights %>% 
+  group_by(dest) %>% 
+  filter(n() > 365)
+
+popular_dests %>% 
+  filter(arr_delay > 0) %>% 
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %>% 
+  select(year:day, dest, arr_delay, prop_delay)
+
+
+
+
