@@ -502,5 +502,25 @@ popular_dests %>%
   select(year:day, dest, arr_delay, prop_delay)
 
 
+# tibble:  variant of the data frame 
+# augmented lists: they have class “tbl_df” + “tbl” + “data.frame”
+as_tibble() # coerce a data frame to be tibble format
+tb <- tibble(x = 1:5, y = 5:1)
+typeof(tb)
+#> [1] "list"
+attributes(tb)
 
+#tribble(), short for transposed tibble. 
+a <- tribble(
+  ~x, ~y, ~z,
+  #--|--|----
+  "a", 2, 3.6,
+  "b", 1, 8.5
+)
+
+# extract by name
+a$x
+a[["x"]]
+#by position
+a[[1]]
 
