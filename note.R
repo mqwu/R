@@ -256,6 +256,126 @@ http://stackoverflow.com/questions/10904124/global-and-local-variables-in-r
 # apply function
 http://stackoverflow.com/questions/3505701/r-grouping-functions-sapply-vs-lapply-vs-apply-vs-tapply-vs-by-vs-aggrega
 
+# apply
+#When you want to apply a function to the rows or columns of a matrix (and higher-dimensional analogues); 
+#not generally advisable for data frames as it will coerce to a matrix first.
+# Two dimensional matrix
+M <- matrix(seq(1,16), 4, 4)
+
+# apply min to rows
+apply(M, 1, min)
+[1] 1 2 3 4
+
+# apply max to columns
+apply(M, 2, max)
+[1]  4  8 12 16
+
+# 3 dimensional array
+M <- array( seq(32), dim = c(4,4,2))
+
+# Apply sum across each M[*, , ] - i.e Sum across 2nd and 3rd dimension
+apply(M, 1, sum)
+# Result is one-dimensional
+[1] 120 128 136 144
+
+# Apply sum across each M[*, *, ] - i.e Sum across 3rd dimension
+apply(M, c(1,2), sum)
+# Result is two-dimensional
+     [,1] [,2] [,3] [,4]
+[1,]   18   26   34   42
+[2,]   20   28   36   44
+[3,]   22   30   38   46
+[4,]   24   32   40   48
+
+# lapply - When you want to apply a function to each element of a list in turn and get a list back.
+ x <- list(a = 1, b = 1:3, c = 10:100) 
+ lapply(x, FUN = length) 
+ $a 
+ [1] 1
+ $b 
+ [1] 3
+ $c 
+ [1] 91
+
+lapply(x, FUN = sum) 
+$a 
+[1] 1
+$b 
+[1] 6
+$c 
+[1] 5005
+
+# sapply - When you want to apply a function to each element of a list in turn, but you want a vector back, rather than a list.
+x <- list(a = 1, b = 1:3, c = 10:100)
+#Compare with above; a named vector, not a list 
+sapply(x, FUN = length)  
+a  b  c   
+1  3 91
+
+sapply(x, FUN = sum)   
+a    b    c    
+1    6 5005 
+
+sapply(1:5,function(x) rnorm(3,x))
+           [,1]     [,2]     [,3]     [,4]     [,5]
+[1,] 1.6622346 2.463587 3.303416 4.248478 5.781673
+[2,] 1.7763855 3.241603 1.370866 5.912452 5.506866
+[3,] 0.4434785 2.941029 3.045867 3.054171 3.502678
+ 
+sapply(1:5,function(x) matrix(x,2,2))
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    2    3    4    5
+[2,]    1    2    3    4    5
+[3,]    1    2    3    4    5
+[4,]    1    2    3    4    5
+ 
+sapply(1:5,function(x) matrix(x,2,2), simplify = "array")
+
+# vapply - When you want to use sapply but perhaps need to squeeze some more speed out of your code.
+# For vapply, you basically give R an example of what sort of thing your function will return, 
+x <- list(a = 1, b = 1:3, c = 10:100)
+#Note that since the advantage here is mainly speed, this
+# example is only for illustration. We're telling R that
+# everything returned by length() should be an integer of 
+# length 1. 
+vapply(x, FUN = length, FUN.VALUE = 0L) 
+a  b  c  
+1  3 91
+
+ # mapply - For when you have several data structures (e.g. vectors, lists) and you want to apply 
+ # a function to the 1st elements of each, and then the 2nd elements of each, etc., coercing the 
+ # result to a vector/array as in sapply.
+ #Sums the 1st elements, the 2nd elements, etc. 
+mapply(sum, 1:5, 1:5, 1:5) 
+[1]  3  6  9 12 15
+#To do rep(1,4), rep(2,3), etc.
+mapply(rep, 1:4, 4:1)   
+[[1]]
+[1] 1 1 1 1
+
+[[2]]
+[1] 2 2 2
+
+[[3]]
+[1] 3 3
+
+[[4]]
+[1] 4
+
+lapply is a list apply which acts on a list or vector and returns a list.
+sapply is a simple lapply (function defaults to returning a vector or matrix when possible)
+vapply is a verified apply (allows the return object type to be prespecified)
+rapply is a recursive apply for nested lists, i.e. lists within lists
+tapply is a tagged apply where the tags identify the subsets
+apply is generic: applies a function to a matrix's rows or columns (or, more generally, to dimensions of an array)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
 # seq
 #---------------------------------------------------------------
 seq(1, 10, length.out=5)
