@@ -21,10 +21,16 @@ b_path = "Z:/project/Adhoc/data/b.csv"
 # Load and processing data
 #-------------------------------------------------------- 
 d <- read.csv(b_path, header=TRUE, na.strings="N/A")
+
+# correct names
 colnames(d) <- gsub("\\.+", ".", colnames(d))
 colnames(d) <- gsub("\\.$", "", colnames(d))
 
-
+# select vars
+d <- d %>% 
+        select(varA:varB) %>%
+        filter(varC=="Y")
+      
 
 #--------------------------------------------------------
 # EDA
