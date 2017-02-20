@@ -8,8 +8,7 @@ setwd("Z:/project/DataMiningUNC/permian/trunk/Src/Adhoc")
 # Libs
 #-------------------------------------------------------- 
 rm(list=ls(all=TRUE))  # clean memory
-library(dplyr)
-library(ggplot2)
+library(tidyverse)
 
 
 #--------------------------------------------------------
