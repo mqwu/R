@@ -21,6 +21,9 @@ b_path = "Z:/project/Adhoc/data/b.csv"
 # Load and processing data
 #-------------------------------------------------------- 
 d <- read.csv(b_path, header=TRUE, as.is=T)
+colnames(d) <- gsub("\\.+", ".", colnames(d))
+colnames(d) <- gsub("\\.$", "", colnames(d))
+
 
 
 #--------------------------------------------------------
