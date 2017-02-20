@@ -15,13 +15,13 @@ library(ggplot2)
 #--------------------------------------------------------
 # Paths
 #-------------------------------------------------------- 
-a_path = "Z:/project/Adhoc/data/a.rds"
+d_path = "Z:/project/Adhoc/data/d.csv"
 b_path = "Z:/project/Adhoc/data/b.csv"
 
 #--------------------------------------------------------
 # Load and processing data
 #-------------------------------------------------------- 
-d <- read.csv(b_path,header=TRUE, as.is=T)
+d <- read.csv(b_path, header=TRUE, as.is=T)
 
 
 #--------------------------------------------------------
