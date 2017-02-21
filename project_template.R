@@ -38,10 +38,10 @@ d <- d %>%
 #-------------------------------------------------------- 
 ## Numerical vars
 # hist
-plot_HistDensity(d$v1)
+plot_HistDensity(dat$v1, "xxx")
 
 # boxplot
-plot_box(d, x="catvar", y="vname")
+plot_Box(dat, y="v2", title="vvv")
 
 
 #--------------------------------------------------------
