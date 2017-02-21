@@ -36,12 +36,19 @@ d <- d %>%
 #--------------------------------------------------------
 # EDA
 #-------------------------------------------------------- 
+# summary stats
+summary(dat)
+
+# missing values
+sapply(dat, function(x) sum(is.na(x)))  # count
+sapply(dat, function(x) sum(is.na(x))/nrow(dat))  # proportion
+        
 ## Numerical vars
 # hist
 plot_HistDensity(dat$v1, "xxx")
 
 # boxplot
-plot_Box(dat, y="v2", title="vvv")
+plot_Box(dat, x="v1", y="v2", title="vvv")
 
 
 #--------------------------------------------------------
@@ -90,15 +97,36 @@ plot_Box <- function(d, x="1", y, title=""){
               plot.title = element_text(hjust = 0.5),
               legend.position="none")
   } else { # categorical var with multiple level
-    p
+    p + theme(plot.title = element_text(hjust = 0.5))
   }
   ggsave(paste0(title,"_box.png"))
 }
 
 
+plot_StackingProp <- function(d, x="1", y, title=""){
+  # stacking proportion plot 
+  # Arg:        
+  #   d: data frame
+  #   x: catergorical var 
+  #   y: catergorical var for count (proportion)
+  # return: 
+  #   stacking proportion plot of y for different x catergory
+  ggplot(data = d) + 
+    geom_bar(mapping = aes_string(x = x, fill = y), position = "fill") +
+    guides(fill=guide_legend(title=title))
+  ggsave(paste0(title,"_stackingProp.png"))
+}
 
 
-
-
-
-
+plot_BarCount <- function(d, x="1", y, title=""){
+  # Side by side Bar count plot category on x and y
+  # Arg:        
+  #   d: data frame
+  #   x: main catergorical var 
+  #   y: catergorical var within x 
+  # return: 
+  #   Side by side Bar count plot category on x and y
+  ggplot(data = d) + 
+    geom_bar(mapping = aes_string(x = x, fill = y), position = "dodge")
+  ggsave(paste0(title,"_barcount.png"))
+}
