@@ -1,9 +1,7 @@
 
-
 #--------------------------------------------------------
 # Tools: collection of useful functions
 #-------------------------------------------------------- 
-
 plot_HistDensity <- function(x, title){
   # plot histogram with density curve overlaid
   # Arg:
@@ -123,5 +121,3 @@ plotRFVarImp <- function(rf.mod){
   importancePlot(d=pred.acc, ylb="mda", 20)
   importancePlot(d=pred.gini, ylb="mdg", 20)
 }
-
-
