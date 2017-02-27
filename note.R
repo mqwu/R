@@ -644,3 +644,23 @@ a[["x"]]
 #by position
 a[[1]]
 
+
+# set string as var name
+# assign + eval(as.name())
+
+for (i in 1:20){
+  path <- paste0("d", i,"_path")
+  d.frame <- paste0("d", i)
+  assign(d.frame, read.csv(eval(as.name(path)), header=F))
+  
+}
+
+# change multiple data.frame col names using setNames
+header <- read_excel(header_path)
+for (i in 1:20){
+  path <- paste0("d", i,"_path")
+  d.frame <- paste0("d", i)
+  assign(d.frame, setNames(read.csv(eval(as.name(path)), header=F), names(header)) )
+}
+
+
