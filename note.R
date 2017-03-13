@@ -664,3 +664,7 @@ for (i in 1:20){
 }
 
 
+# select factor variable from a data frame and then count frequency
+is.fact <- sapply(dat, is.factor)
+lapply(dat[,is.fact], table)
+
