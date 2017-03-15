@@ -27,6 +27,10 @@ d <- read.csv(b_path, header=TRUE, na.strings="N/A")
 colnames(d) <- gsub("\\.+", ".", colnames(d))
 colnames(d) <- gsub("\\.$", "", colnames(d))
 
+# correct var type
+d$Well.Name <- as.character(d$Well.Name)
+d$Failure.Date <- as.Date(d$Failure.Date)
+
 # order columns alphabetically in R
 d[,order(colnames(d))]
 
