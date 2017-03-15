@@ -27,6 +27,9 @@ d <- read.csv(b_path, header=TRUE, na.strings="N/A")
 colnames(d) <- gsub("\\.+", ".", colnames(d))
 colnames(d) <- gsub("\\.$", "", colnames(d))
 
+# order columns alphabetically in R
+d[,order(colnames(d))]
+
 # select vars and filter obs
 d <- d %>% 
         select(varA:varB) %>%
