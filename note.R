@@ -668,3 +668,6 @@ for (i in 1:20){
 is.fact <- sapply(dat, is.factor)
 lapply(dat[,is.fact], table)
 
+# order columns alphabetically in R
+df[,order(colnames(df))]
+df %>% select(noquote(order(colnames(df))))
