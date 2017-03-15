@@ -46,6 +46,7 @@ d <- d %>%
 # EDA
 #-------------------------------------------------------- 
 # summary stats
+dim(dat)
 summary(dat)
 
 # missing values
