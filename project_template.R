@@ -29,7 +29,7 @@ colnames(d) <- gsub("\\.$", "", colnames(d))
 
 # correct var type
 d$Well.Name <- as.character(d$Well.Name)
-d$Failure.Date <- as.Date(d$Failure.Date)
+gas.d$Observation.Date <- as.Date(gas.d$Observation.Date, "%m/%d/%Y")
 
 # order columns alphabetically in R
 d[,order(colnames(d))]
