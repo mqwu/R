@@ -33,6 +33,7 @@ d[,order(colnames(d))]
 # select vars and filter obs
 d <- d %>% 
         select(varA:varB) %>%
+        select(iris,contains("Sepal")) %>%
         filter(varC=="Y")
 
       
