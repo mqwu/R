@@ -34,6 +34,9 @@ gas.d$Observation.Date <- as.Date(gas.d$Observation.Date, "%m/%d/%Y")
 # order columns alphabetically in R
 d[,order(colnames(d))]
 
+# move some variable to front
+gas.d <- gas.d %>% select(Observation.Date, everything())
+
 # select vars and filter obs
 d <- d %>% 
         select(varA:varB) %>%
