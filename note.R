@@ -671,3 +671,8 @@ lapply(dat[,is.fact], table)
 # order columns alphabetically in R
 df[,order(colnames(df))]
 df %>% select(noquote(order(colnames(df))))
+
+# using proxy to install package from github
+library(httr)
+with_config(use_proxy(url="proxy-eu.shell.com", port=8080), install_github("kassambara/easyGgplot2"))
+
