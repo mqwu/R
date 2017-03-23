@@ -676,3 +676,29 @@ df %>% select(noquote(order(colnames(df))))
 library(httr)
 with_config(use_proxy(url="proxy-eu.shell.com", port=8080), install_github("kassambara/easyGgplot2"))
 
+
+# multiple lines by group
+library(reshape)
+library(ggplot2)
+library(plotly)
+
+x <- seq(0, 4 * pi, 0.1)
+n <- length(x)
+y1 <- 0.5 * runif(n) 
+y2 <- 2 * runif(n) 
+y3 <- 0.2 * runif(n) + cos(x) - sin(x)
+y4 <- rnorm(n)
+df <- data.frame(x, y1, y2, y3, y4)
+
+#----------------------------------------------------
+df.melted <- melt(df, id = "x")
+df.melted[is.na(df.melted$value),3] <- 0  # fill NA value
+
+#----------------------------------------------------
+wear <- c("y1", "y3") # separate lines into groups
+df.melted$col <- as.factor(ifelse(df.melted$variable%in%wear, 1, 0))
+#----------------------------------------------------
+p <- ggplot(data = df.melted, aes(x = x, y = value, group=variable, color=col)) +
+      geom_line() #+ geom_point()
+ggplotly(p)
+
