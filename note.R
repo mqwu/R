@@ -126,6 +126,7 @@
  
  # Correlation plot
  # --------------------------------------------------------------------------------------
+http://www.sthda.com/french/wiki/matrice-de-correlation-avec-r-analyse-et-visualisation?title#at_pco=smlwn-1.0&at_si=58d3dbe36b6b1baa&at_ab=per-2&at_pos=0&at_tot=1
  http://www.sthda.com/english/wiki/visualize-correlation-matrix-using-correlogram
  
 
