@@ -9,6 +9,7 @@ setwd("Z:/project/DataMiningUNC/permian/trunk/Src/Adhoc")
 #-------------------------------------------------------- 
 rm(list=ls(all=TRUE))  # clean memory
 library(tidyverse)
+library(corrplot)
 
 source("tools.R")
 
@@ -51,6 +52,11 @@ d <- d %>%
 # summary stats
 dim(dat)
 summary(dat)
+
+# corrlation
+corr.M <- cor(x, use="pairwise.complete.obs")
+corrplot(corr.M, type="upper")
+corrplot(corr.M, method="number", type="upper")
 
 # missing values
 sapply(dat, function(x) sum(is.na(x)))  # count
