@@ -8,10 +8,13 @@ setwd("Z:/project/DataMiningUNC/permian/trunk/Src/Adhoc")
 # Libs and tools
 #-------------------------------------------------------- 
 rm(list=ls(all=TRUE))  # clean memory
-library(tidyverse)
-library(corrplot)
 
 source("tools.R")
+
+# load the required packages and try to install them if they are not available
+reqPackages <- c("tidyverse", "mlr", "corrplot")
+load_libs(reqPackages)
+
 
 #--------------------------------------------------------
 # Paths
