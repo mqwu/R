@@ -55,6 +55,10 @@ d <- d %>%
 # summary stats
 dim(dat)
 summary(dat)
+sum(dat$v < 0) 
+sum(dat$v == 0)
+sum(duplicated(dat))
+
 
 # corrlation
 corr.M <- cor(x, use="pairwise.complete.obs")
