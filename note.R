@@ -703,3 +703,10 @@ p <- ggplot(data = df.melted, aes(x = x, y = value, group=variable, color=col)) 
       geom_line() #+ geom_point()
 ggplotly(p)
 
+
+#-------------------------------------------------------
+# Debug
+#-------------------------------------------------------
+# Shiny debug
+# print object in server.R
+cat(file=stderr(), timesheet[1,1], str(a), glimpse(a),  "\n")
