@@ -24,6 +24,10 @@ select(flight, ends_with("delay"))
 # starts_with, ends_with, contains, matches, num_range, one_of("x","y","z"), everything()
 select(flight, v_new=v1, v_old=v2, v3) # using select to rename variables
 
+#Select seems to work with the column indexes
+Vars <- c("v1", "v2","v3")
+d <- d %>% filter(year %in% c(2017)) %>% select(match(Vars, names(.))) 
+
 
 # chain
 x1 <- 1:5; x2 <- 2:6
