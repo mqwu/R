@@ -6,6 +6,9 @@
  
  # Wickham (RStudio)
  http://adv-r.had.co.nz/Style.html#undefined
+
+ # efficient R
+ https://csgillespie.github.io/efficientR/performance.html
  
  # Save/load workspace; Save object
  #-----------------------------------------------------------
