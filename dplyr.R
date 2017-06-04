@@ -179,3 +179,9 @@ by_id %>% filter(!is.na(UTMeasurement)) %>%
             })
 
 
+# multiple conditions mutate
+a %>% mutate(category = case_when(.$price > 900 ~ "Super Expensive", 
+                                  .$price >= 500 ~ "Expensive", 
+                                  .$price >= 100 ~ "Mild",
+                                  TRUE ~ "Cheap"))
+     
