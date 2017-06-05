@@ -187,3 +187,7 @@ a %>% mutate(category = case_when(.$price > 900 ~ "Super Expensive",
       .$category %>%
       table()
      
+# left join
+left_join(A, B, by = c("first_name" = "second_name"))
+      
+      
