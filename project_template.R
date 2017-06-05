@@ -34,6 +34,7 @@ colnames(d) <- gsub("\\.$", "", colnames(d))
 # correct var type
 d$Well.Name <- as.character(d$Well.Name)
 gas.d$Observation.Date <- as.Date(gas.d$Observation.Date, "%m/%d/%Y")
+gas.d$Observation.Date <- mdy(gas.d$Observation.Date, "%m/%d/%Y")  # use lubridate package
 
 # order columns alphabetically in R
 d[,order(colnames(d))]
