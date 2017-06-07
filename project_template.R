@@ -36,6 +36,9 @@ d$Well.Name <- as.character(d$Well.Name)
 gas.d$Observation.Date <- as.Date(gas.d$Observation.Date, "%m/%d/%Y")
 gas.d$Observation.Date <- mdy(gas.d$Observation.Date, "%m/%d/%Y")  # use lubridate package
 
+# parse time data
+d <- d %>% mutate(date=as.Date(parse_date_time(time, orders="mdy HM")))
+
 # order columns alphabetically in R
 d[,order(colnames(d))]
 
