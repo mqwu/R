@@ -143,6 +143,8 @@ models <- dat %>% group_by(date) %>%
 	do(
 		mod = lm(dep_delay ~ time, data=.)
 	)
+			   
+http://www.milanor.net/blog/dplyr-do-tips-for-using-and-programming/			   
 
 
 # plot by group
