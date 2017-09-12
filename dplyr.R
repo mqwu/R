@@ -8,6 +8,14 @@ data.frame(head(flights))  # convert to a normal data frame to see all of vars
 
 glimpse(mammals)  # look at data in a transpose view
 
+# look up table
+two <- c("AA", "AS")
+lut <- c("AA" = "American", 
+         "AS" = "Alaska", 
+         "B6" = "JetBlue")
+two <- lut[two]
+two
+
 # filter rows
 filter(flights, Month==1, DayofMonth==1)  # M==1& DayofM==1
 filter(flights, Month==1|Month==2)  # M==1 or 2
