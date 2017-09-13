@@ -713,3 +713,23 @@ ggplotly(p)
 # Shiny debug
 # print object in server.R
 cat(file=stderr(), timesheet[1,1], str(a), glimpse(a),  "\n")
+
+
+#----------------------------------------------------------
+# Writing Functions in R (DataCamp course)
+#----------------------------------------------------------
+# seq_along: loop each col
+
+for (i in seq_along(df)) {
+  print(median(df[[i]]))
+}
+
+## allocate space for faster performance
+# Create new double vector: output
+output <- vector("double", ncol(df))
+
+# Alter the loop
+for (i in seq_along(df)) {
+  # Change code to store result in output
+  output[i] <- median(df[[i]])
+}
