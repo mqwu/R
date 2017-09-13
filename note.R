@@ -733,3 +733,17 @@ for (i in seq_along(df)) {
   # Change code to store result in output
   output[i] <- median(df[[i]])
 }
+
+# Define example vector x
+x <- 1:10 
+
+
+# Use the function template to create the rescale01 function
+rescale01 <- function(x) {
+  # body
+  rng <- range(x, na.rm = TRUE) 
+  (x - rng[1]) / (rng[2] - rng[1])
+}
+
+# Test your function, call rescale01 using the vector x as the argument
+rescale01(x)
