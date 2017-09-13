@@ -747,3 +747,18 @@ rescale01 <- function(x) {
 
 # Test your function, call rescale01 using the vector x as the argument
 rescale01(x)
+
+
+## use message() to highlight output info
+replace_missings <- function(x, replacement) {
+  is_miss <- is.na(x)
+  x[is_miss] <- replacement
+  
+  # Rewrite to use message()
+  #cat(sum(is_miss), replacement, "\n")
+  message(sum(is_miss), " missings replaced by the value ", replacement)
+  x
+}
+
+# Check your new function by running on df$z
+replace_missings(df$z, replacement = 0)
