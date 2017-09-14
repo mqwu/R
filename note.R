@@ -796,7 +796,7 @@ map_chr(df3, typeof)
 # Find a summary of each column
 map(df3, summary)
 
-## shortcut to write a function on fly
+## shortcut to write a function .f
 # Rewrite to call an anonymous function
 map(cyl, ~lm(mpg ~ wt, data=.))
 
@@ -804,7 +804,7 @@ map(cyl, ~lm(mpg ~ wt, data=.))
 models <- map(cyl, ~ lm(mpg ~ wt, data = .))
 # Use map and coef to get the coefficients for each model: coefs
 coefs <- map(models, coef)
-# Use string shortcut to extract the wt coefficient 
+# Shortcut  when .f is [[
 map_dbl(coefs, "wt")
 
 coefs <- map(models, coef)
