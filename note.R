@@ -762,3 +762,62 @@ replace_missings <- function(x, replacement) {
 
 # Check your new function by running on df$z
 replace_missings(df$z, replacement = 0)
+
+## functional programming
+# give equal weight to verbs and nouns
+# abstract away the details of implementation
+# functions + vectors
+
+# Add a second argument called power
+f <- function(x, power) {
+    # Edit the body to return absolute deviations raised to power
+    abs(x - mean(x))^power
+}
+
+# function can be argument as well
+col_summary <- function(df, fun) {
+  output <- vector("numeric", length(df))
+  for (i in seq_along(df)) {
+    output[[i]] <- fun(df[[i]])
+  }
+  output
+}
+
+# library(purrr)
+# Find the 5th percentile of each column, excluding missing values
+map_dbl(planes, quantile, probs=0.05, na.rm=T)
+
+# Find the columns that are numeric
+map_lgl(df3, is.numeric)
+
+# Find the type of each column
+map_chr(df3, typeof)
+
+# Find a summary of each column
+map(df3, summary)
+
+## shortcut to write a function on fly
+# Rewrite to call an anonymous function
+map(cyl, ~lm(mpg ~ wt, data=.))
+
+# Save the result from the previous exercise to the variable models
+models <- map(cyl, ~ lm(mpg ~ wt, data = .))
+# Use map and coef to get the coefficients for each model: coefs
+coefs <- map(models, coef)
+# Use string shortcut to extract the wt coefficient 
+map_dbl(coefs, "wt")
+
+coefs <- map(models, coef)
+# use map_dbl with the numeric shortcut to pull out the second element
+map_dbl(coefs, 2)
+
+##pipe
+# Define models (don't change)
+models <- mtcars %>% 
+  split(mtcars$cyl) %>%
+  map(~ lm(mpg ~ wt, data = .))
+
+# Rewrite to be a single command using pipes, last chain results become the first argument of next function
+models %>% map(summary) %>% map_dbl("r.squared")
+
+
