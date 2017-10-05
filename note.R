@@ -36,6 +36,13 @@
  # it doesn't install the dependencies and hence, R keeps throwing the load namespace error.
  # Solution: install.packages("forecast", repos=c("http://rstudio.org/_packages", "http://cran.rstudio.com"))
   
+ # Change default library for RStudio
+ # 1. install R and RStudio to a writeable place e.g. C:/Apps/software
+
+ # 2. Click Start --> Control Panel --> User Accounts --> Change my environmental variables
+ # 3. The Environmental Variables window pops up. If you see R_LIBS_USER, highlight it and click Edit.
+ #     Otherwise click New. Both actions open a window with fields for Variable and Value.
+ # 4. Add your lib path
  
  # Load data & clean name
  d <- read.csv("./data/Gas_Engine.csv", header=T, as.is=T)
