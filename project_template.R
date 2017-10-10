@@ -1,3 +1,5 @@
+rm(list=ls(all=TRUE))  # clean memory
+
 #--------------------------------------------------------
 # Working dir
 #-------------------------------------------------------- 
@@ -7,8 +9,6 @@ setwd("Z:/project/DataMiningUNC/permian/trunk/Src/Adhoc")
 #--------------------------------------------------------
 # Libs and tools
 #-------------------------------------------------------- 
-rm(list=ls(all=TRUE))  # clean memory
-
 source("tools.R")
 
 # load the required packages and try to install them if they are not available
