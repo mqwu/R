@@ -23,6 +23,7 @@ filter(flights, Month %in% c(1,2))  # M==1 or 2
 filter(flights, hour >= 0, hour <= 5)  # common represent "And"
 filter(flights, delay_time >= 2*delay_min)  # common represent "And"
 filter(flights, !is.na(dep_delay))  # filter na rows
+filter(flights, grepl("^Tire", service))
 
 # select cols
 select(flight, v1, v2, v3)
