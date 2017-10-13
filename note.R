@@ -1015,3 +1015,15 @@ pools2 <- read.csv("swimming_pools.csv")
 
 # Examine the structure of pools2
 str(pools2)       
+
+       
+#----------------------------------------------------------
+# Cleaning data in R (DataCamp course)
+#----------------------------------------------------------
+## Getting feel of your data
+class()
+dim()
+names()
+str()
+glimpse()
+summary()
