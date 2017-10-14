@@ -1046,6 +1046,6 @@ separate(data, col, into, sep=)
 separate(data, year_mont, c(year, month), sep="_")
 # unite cols
 unite(data, col, ...)
-unite(data, year_month, year, month)
+unite(data, year_month, year, month, sep="_")
        
        
