@@ -7,9 +7,11 @@ for (i in seq_along(df)) {
   print(median(df[[i]]))
 }
 
+
 ## allocate space for faster performance
 # Create new double vector: output
 output <- vector("double", ncol(df))
+
 
 # Alter the loop
 for (i in seq_along(df)) {
@@ -19,7 +21,6 @@ for (i in seq_along(df)) {
 
 # Define example vector x
 x <- 1:10 
-
 
 # Use the function template to create the rescale01 function
 rescale01 <- function(x) {
@@ -45,6 +46,7 @@ replace_missings <- function(x, replacement) {
 
 # Check your new function by running on df$z
 replace_missings(df$z, replacement = 0)
+
 
 ## functional programming
 # give equal weight to verbs and nouns
