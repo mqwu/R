@@ -14,6 +14,7 @@ tail()
 hist()
 plot()
 
+
 ## Tidy data
 # gather: gather cols into key-val pair
 # wide -> long (tidy)       
@@ -25,13 +26,15 @@ weather2 <- gather(weather, day, value, X1:X31, na.rm = TRUE)
 spread(data, key, val)
 spread(long_df, key, val)
 
+
 # separate: separate one col into multiple cols
 separate(data, col, into, sep=)
 separate(data, year_month, c("year", "month"), sep="_")
 # unite: united multiple cols into one
 unite(data, col, ...)
 unite(data, year_month, year, month, sep="_")
-       
+
+
 ## type conversion
 class() # check type
 class(99L)  # integer end with L
@@ -60,7 +63,8 @@ str_replace(friends, "Alice", "Derek")
        
 tolower("XXX")  # base R
 toupper("xxx")
- 
+
+
 ## missing data
 # check
 any(is.na(df))       
@@ -85,7 +89,8 @@ ind <- which(weather6$Max.Humidity==1000)
 weather6[ind, ]
 # Change 1000 to 100
 weather6$Max.Humidity[ind] <- 100        
-       
+
+
 ## outlier detection
 boxplot(x, horizontal=True)
 boxplot(df)
