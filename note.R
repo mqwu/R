@@ -1027,3 +1027,25 @@ names()
 str()
 glimpse()
 summary()
+
+head()
+tail()
+hist()
+plot()
+
+## Tidy data
+# wide -> long (tidy)       
+gather(data, key, val, name of cols to gather or not)  
+gather(wide_df, key, value, -col)
+# long -> wide
+spread(data, key, val)
+spread(long_df, key, val)
+
+# separate cols
+separate(data, col, into, sep=)
+separate(data, year_mont, c(year, month), sep="_")
+# unite cols
+unite(data, col, ...)
+unite(data, year_month, year, month)
+       
+       
