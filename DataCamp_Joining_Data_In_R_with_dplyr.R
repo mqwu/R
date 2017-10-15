@@ -35,7 +35,7 @@ albums %>%
   nrow()
 
 # anti_join: filter primary df with rows that does not apprear in 2nd df
-anti_join(df1, df2, by = "key")
+anti_join(df1, df2, by = "key")  # only keep df1 cols and keep rows that does not appear in df2
 
 
 ## set operations
