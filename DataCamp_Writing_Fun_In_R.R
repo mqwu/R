@@ -56,7 +56,7 @@ output <- vector("double", ncol(df))
 # Alter the loop
 for (i in seq_along(df)) {
   # Change code to store result in output
-  output[i] <- median(df[[i]])
+  output[[i]] <- median(df[[i]])
 }
 
 # Define example vector x
@@ -108,7 +108,27 @@ col_summary <- function(df, fun) {
   output
 }
 
-# library(purrr)
+## library(purrr)
+map_dbl(.x, .f, ...)
+Every map function works the same way
+1. Loop over a vector .x: can be df(over a list) can be argument of functions.
+2. Do something to each element .f
+3. Return the results(if use walk(), we just care about side effect like plot, not care about return values)
+
+The map functions differ in their return type
+There is one function for each type of vector:
+● map() returns a list
+● map_dbl() returns a double vector
+● map_lgl() returns a logical vector
+● map_int() returns a integer vector
+● map_chr() returns a character vector
+
+# specify .f
+map(df, summary)  # existing function
+map(df, myfun)    # a fun you defined
+map(df, function(x) sum(is.na(x))) # a fun defined on fly
+map(df, ~sum(is.na(.)))  # a fun defined using a formula shortcut    
+
 # Find the 5th percentile of each column, excluding missing values
 map_dbl(planes, quantile, probs=0.05, na.rm=T)
 
@@ -150,7 +170,6 @@ map2(n, mu, rnorm)
 # Initialize n and mu
 n <- list(5, 10, 20)
 mu <- list(1, 5, 10)
-
 # Create a sd list with the values: 0.1, 1 and 0.1
 sd <- list(0.1, 1, 0.1)
 
@@ -158,6 +177,7 @@ sd <- list(0.1, 1, 0.1)
 pmap(list(n, mu, sd), rnorm)
 
 # to be safe, name the elements of the argument list
+# pmap(.l, .f, ...)
 pmap(list(mean=mu, n=n, sd=sd), rnorm)
 
 ## loop over functions
@@ -180,6 +200,7 @@ params <- list(
   rexp_params
 )
 
+# invoke_map() to iterate over functions
 # Call invoke_map() on f supplying params as the second argument
 invoke_map(f, n = 5)
 
@@ -217,6 +238,14 @@ models %>% map(summary) %>% map_dbl("r.squared")
 # safely() is an adverb; it takes a verb and modifies it. That is, it takes a function as an argument and it returns 
 # a function as its output. The function that is returned is modified so it never throws an error 
 # (and never stops the rest of your computation!).
+safely() captures the successful result or the error,
+always returns a list
+● possibly() always succeeds, you give it a default value
+to return when there is an error
+● quietly() captures printed output, messages, and
+warnings instead of capturing errors
+    
+    
 # Create safe_readLines() by passing readLines() to safely()
 safe_readLines <- safely(readLines)
 
@@ -240,9 +269,9 @@ html[["example"]][["result"]]
 # Extract the error from the element that was unsuccessful
 html[["asdf"]][["error"]]
 
-      # purrr provides a function transpose() that reshapes a list so the inner-most level becomes the outer-most level. 
-      # In otherwords, it turns a list-of-lists "inside-out".
-       # Define save_readLines() and html
+# purrr provides a function transpose() that reshapes a list so the inner-most level becomes the outer-most level. 
+# In otherwords, it turns a list-of-lists "inside-out".
+# Define save_readLines() and html
 safe_readLines <- safely(readLines)
 html <- map(urls, safe_readLines)
 
@@ -272,6 +301,11 @@ res[!is_ok]
        
        
 ## walk for side effect(we do not care about return values)
+plots <- cyl %>%
+map(~ ggplot(., aes(mpg, wt)) + geom_point())
+paths <- paste0(names(plots), ".pdf")
+walk2(paths, plots, ggsave)
+    
 # Define list of functions
 f <- list(Normal = "rnorm", Uniform = "runif", Exp = "rexp")
 
@@ -288,7 +322,7 @@ sims <- invoke_map(f, params, n = 50)
 # Use walk() to make a histogram of each element in sims
  walk(sims, hist)
 
-       # Replace "Sturges" with reasonable breaks for each sample
+# Replace "Sturges" with reasonable breaks for each sample
 breaks_list <- list(
   Normal = seq(6, 16, 0.5),
   Uniform = seq(0, 5, 0.25),
