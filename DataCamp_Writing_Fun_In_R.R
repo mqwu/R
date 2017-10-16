@@ -1,12 +1,52 @@
 #----------------------------------------------------------
 # Writing Functions in R (DataCamp course)
 #----------------------------------------------------------
+
+# two type of vectors in R
+# 1. atomic vector (6 type): integer, double, complex, character, logical, raw (homogeneous)
+# 2. list: recursive and heterogeneous
+
+# list
+# [ extract a sublist, can be referenced by the sublist name
+#  [[ or $ extract elements, remove one level of hierachy [["sublist.name"]] $sublist.name
+
+
+## for loop
+# three parts:
+# 1. sequnce: safe way=> seq_along() 
+# 2. body
+# 3. output
+a <- c(8, 9, 10)
+b <- c(9, 10)
+c <- 10
+
+seq_along(a)
+# [1] 1 2 3
+seq_along(b)
+# [1] 1 2
+seq_along(c)
+# [1] 1
+
+seq(a)
+# [1] 1 2 3
+seq(b)
+# [1] 1 2
+seq(c)
+# [1]  1  2  3  4  5  6  7  8  9 10
+
+
 # seq_along: loop each col
 
 for (i in seq_along(df)) {
   print(median(df[[i]]))
 }
 
+How should you write a function?
+● Start with a simple problem
+● Get a working snippet of code
+● Rewrite to use temporary variables
+● Rewrite for clarity
+● Finally, turn into a function
 
 ## allocate space for faster performance
 # Create new double vector: output
