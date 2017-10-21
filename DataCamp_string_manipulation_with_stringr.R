@@ -30,6 +30,8 @@ str_sub()
 # Extract the last letter in boy_names, then tabulate
 boy_last_letter <- str_sub(boy_names,-1, -1)
 table(boy_last_letter)
+# modify a string
+str_sub(x, 3, 3) <- "X"
 
 # Extract the first letter in girl_names, then tabulate
 girl_first_letter <- str_sub(girl_names, 1,1)
@@ -67,6 +69,21 @@ hist(number_As)
 total_as <- number_as + number_As
 # girl_names with more than 4 a's
 girl_names[total_as>4]
+
+
+# difference
+ # extract part of a strings for each element
+string_sub(string, start, end) 
+
+#  returns the elements of a character vector that match a regular expression (similar to grep() with value = TRUE)`.
+string_subset(strings, pattern) 
+
+# return same length as string, only return patterns
+# extracts text corresponding to the first match, returning a character vector. 
+string_extract(string, pattern) 
+# extracts all matches and returns a list of character vectors.
+str_extract_all() 
+
 
 ##word and letter counts
 # Split lines into words
