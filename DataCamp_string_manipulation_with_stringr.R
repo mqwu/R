@@ -67,3 +67,16 @@ hist(number_As)
 total_as <- number_as + number_As
 # girl_names with more than 4 a's
 girl_names[total_as>4]
+
+##word and letter counts
+# Split lines into words
+words <- str_split(lines, " ")
+
+# Number of words per line
+lapply(words, length)
+  
+# Number of characters in each word
+word_lengths <- lapply(words, str_length)
+  
+# Average word length per line
+lapply(word_lengths, mean)
