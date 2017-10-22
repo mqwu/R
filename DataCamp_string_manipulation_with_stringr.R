@@ -213,7 +213,7 @@ str_view(string, pattern)
 optional()
 zero_or_more()
 one_or_more()
-repeated()  # between n and m times {n}{m}
+repeated(pattern, n, m)  # between n and m times {n}{m}
 
 ## shortcut
 DGT
@@ -245,6 +245,9 @@ str_view(x, pattern = START %R% "cat" %R% END)  # end of string
 ## Wild card
 # any char
 ANY_CHAR
+# alternative 
+or(A, B)
+
 x <- c("cat", "coat", "scotland", "tic toc")
 
 # Match any character followed by a "t"
@@ -388,4 +391,106 @@ str_extract(contact, phone_pattern)
 # Extract ALL phone numbers
 str_extract_all(contact, phone_pattern)
 
+# Look for two digits
+str_view(narratives, pattern=DGT %R% DGT)
 
+# Pattern to match one or two digits
+age <- repeated(DGT, 1, 2)
+str_view(narratives, 
+  pattern = age)
+
+# Pattern to match units 
+unit <- optional(SPC) %R% or("YO", "YR", "MO")
+
+# Test pattern with age then units
+str_view(narratives, 
+  pattern = age %R% unit)
+
+# Pattern to match gender
+gender <- optional(SPC) %R% or("M", "F")
+
+# Test pattern with age then units then gender
+str_view(narratives, 
+  pattern = age %R% unit %R% gender)
+
+# Extract age_gender, take a look
+age_gender <- str_extract(narratives, age %R% unit %R% gender)
+age_gender
+
+
+########################
+# Advanced matching
+########################
+capture()
+str_match(str, pattern=capture() %R% ...)
+capture(or("A", "B"))  # or is non-capturing groups
+
+#e.g
+# Capture part between @ and . and after .
+email <- capture(one_or_more(WRD)) %R% 
+  "@" %R% capture(one_or_more(WRD)) %R% 
+  DOT %R% capture(one_or_more(WRD))
+
+# Check match hasn't changed
+str_view(hero_contacts, pattern=email)
+
+
+# Pull out match and captures
+email_parts <- str_match(hero_contacts, email)
+
+# Print email_parts
+print(email_parts)
+
+# Save host
+host <- email_parts[,3]
+host
+
+# View text containing phone numbers
+contact
+
+# Add capture() to get digit parts
+phone_pattern <- capture(three_digits) %R% zero_or_more(separator) %R% 
+           capture(three_digits) %R% zero_or_more(separator) %R%
+           capture(four_digits)
+           
+# Pull out the parts with str_match()
+phone_numbers <- str_match(contact, phone_pattern)
+
+# Put them back together
+str_c(
+  "(",
+  phone_numbers[,2],
+  ") ",
+  phone_numbers[,3],
+  "-",
+  phone_numbers[,4])
+
+# narratives has been pre-defined
+narratives
+
+# Add capture() to get age, unit and sex
+pattern <- capture(optional(DGT) %R% DGT) %R%  
+  optional(SPC) %R% capture(or("YO", "YR", "MO")) %R%
+  optional(SPC) %R% capture(or("M", "F"))
+
+# Pull out from narratives
+str_match(narratives, pattern)
+
+# Edit to capture just Y and M in units
+pattern2 <- capture(optional(DGT) %R% DGT) %R%  
+  optional(SPC) %R% capture(or("Y", "M")) %R% optional(or("O","R")) %R%
+  optional(SPC) %R% capture(or("M", "F"))
+
+# Check pattern
+str_view(narratives, pattern2)
+
+# Pull out pieces
+str_match(narratives, pattern2)
+
+
+########################
+library(stringi)
+########################
+
+# Read play in using stri_read_lines()
+earnest <- stri_read_lines("importance-of-being-earnest.txt")
