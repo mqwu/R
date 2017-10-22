@@ -6,7 +6,6 @@
 # string basic
 ###########################################################
 
-
 ## turn number into string
 estimate <- 1.34019029100
 as.character(estimate)
@@ -42,7 +41,16 @@ str_sub()
 ## hunting for matches
 str_detect()  # return logic vector, the same length as string
 str_count()   # return 0 1 4 5 vector, the same length as string
-str_subset()
+str_subset()  # return strings vector with patterns, length <= original string length
+
+## split
+str_split(str, pattern="&", simplify=TRUE)  # simplyfy=T return matrix
+lapply(str_split(str, pattern="&", simplify=TRUE), length)
+
+## replace matching in string
+str_replace(str, pattern, replacement)  # only replace first in each element of a string vector
+str_replace_all(str, pattern, replacement)
+
 
 
 str_c()  
