@@ -282,3 +282,40 @@ str_view(boy_names,
 str_view(boy_names, 
   pattern = START %R% one_or_more(not_vowels) %R% END, 
   match = TRUE)
+
+## Short cut
+DGT # digit
+
+# Hunting phone #
+# Take a look at ALL digits
+str_view_all(contact, DGT)
+
+# Create a three digit pattern and test
+three_digits <- DGT %R% DGT %R% DGT
+str_view_all(contact,
+  pattern = three_digits)
+
+# Create four digit pattern
+four_digits <-  DGT %R% DGT %R% DGT %R% DGT
+
+# Create a separator pattern and test
+separator <-  char_class("-.() ")
+str_view_all(contact,
+  pattern = separator)
+
+# Create phone pattern
+phone_pattern <- optional(OPEN_PAREN) %R%
+  three_digits %R%
+  zero_or_more(separator) %R%
+  three_digits %R% 
+  zero_or_more(separator) %R%
+  four_digits
+      
+# Test pattern           
+str_view(contact, phone_pattern)
+
+# Extract phone numbers
+str_extract(contact, phone_pattern)
+
+# Extract ALL phone numbers
+str_extract_all(contact, phone_pattern)
