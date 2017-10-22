@@ -2,6 +2,19 @@
 # Stirng Manipulation with stringr (DataCamp course)
 #----------------------------------------------------------
 
+###########################################################
+# string basic
+###########################################################
+
+
+## turn number into string
+estimate <- 1.34019029100
+as.character(estimate)
+[1] "1.340190291"
+format(estimate, digits = 3, scientific=FALSE)
+[1] "1.34"
+formatC(estimate, format = "f", digits = 2)  # C language format "f" "e" "g"
+
 # " inside quote
 "hi!"  # normal
 ' "hi!" ' # have "" inside quote, use ' '
@@ -14,8 +27,23 @@ writeLines("hello\\")  # escape \ for \
 # examples
 https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html
 
+
+###########################################################
+# stringr
+###########################################################
 library(stringr)
 # most fun starts with str_
+
+## common
+str_c()  
+str_length()
+str_sub()
+
+## hunting for matches
+str_detect()  # return logic vector, the same length as string
+str_count()   # return 0 1 4 5 vector, the same length as string
+str_subset()
+
 
 str_c()  
 # similar to paste0, concatenate, default sep="" (not space)
