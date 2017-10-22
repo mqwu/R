@@ -155,9 +155,41 @@ sex <- babynames_2014[ends_in_ee,]$sex
 # Display result as a table
 table(sex)
 
+
+##################################################################
 ## Regular expression
+##################################################################
 library(rebus) # build Regular Expressions in a Human Readable Way
 library(stringr)
+
+## basic
+START
+END
+ANY_CHAR
+%R%  # means then
+
+## char class
+char_class("Aa")
+negated_char_class("Aa") 
+str_view(string, pattern)
+
+## repetition
+optional()
+zero_or_more()
+one_or_more()
+repeated()  # between n and m times {n}{m}
+
+## shortcut
+DGT
+char_class("0-9")
+
+WRD
+char_class("a-zA-Z0-9_")
+
+SPC
+a white space
+
+
 
 # Some strings to practice with
 x <- c("cat", "coat", "scotland", "tic toc")
@@ -319,3 +351,5 @@ str_extract(contact, phone_pattern)
 
 # Extract ALL phone numbers
 str_extract_all(contact, phone_pattern)
+
+
