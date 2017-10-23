@@ -565,18 +565,32 @@ http://www.fileformat.info/info/unicode/char/search.htm
 
 # composes characters with combining accents into a single character.
 stri_trans_nfc()  
-
 # decomposes character with accents into separate letter and accent characters.
 stri_trans_nfd() 
-
+# In Unicode, an accent is known as a diacritic Unicode Property, 
+# and you can match it using the rebus value 
+UP_DIACRITIC
+# The unicode standard has a concept of a grapheme that represents a display character, 
+# but may be composed of many code points. To match any grapheme you can use 
+GRAPHEME
 
 # Things can get tricky when some characters can be specified two ways, 
 # for example è, an e with a grave accent, can be specified either with the single code point \u00e8 
 # or the combination of a \u0065 and a combining grave accent \u0300. They look the same:
 
-# In Unicode, an accent is known as a diacritic Unicode Property, 
-# and you can match it using the rebus value 
-UP_DIACRITIC
+str_view_all(tay_son_separate, UP_DIACRITIC)
+
+# tay_son_separate has been pre-defined
+tay_son_separate
+# View all the characters in tay_son_separate
+str_view_all(tay_son_separate, ANY_CHAR)
+# View all the graphemes in tay_son_separate
+str_view_all(tay_son_separate, GRAPHEME)
+# Combine the diacritics with their letters
+tay_son_builtin <- stri_trans_nfc(tay_son_separate)
+# View all the graphemes in tay_son_builtin
+str_view_all(tay_son_builtin, GRAPHEME)
+
 
 
 
