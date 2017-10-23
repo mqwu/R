@@ -555,6 +555,30 @@ str_replace_all(contact, pattern = DGT, replacement = "X")
 str_replace_all(contact, pattern = DGT, 
   replacement = c("X", ".", "*", "_"))
 
+################################
+# unicode and pattern matching
+################################
+"\uxxxx"
+"\Uxxxx"
+http://www.unicode.org/charts/
+http://www.fileformat.info/info/unicode/char/search.htm
+
+# composes characters with combining accents into a single character.
+stri_trans_nfc()  
+
+# decomposes character with accents into separate letter and accent characters.
+stri_trans_nfd() 
+
+
+# Things can get tricky when some characters can be specified two ways, 
+# for example è, an e with a grave accent, can be specified either with the single code point \u00e8 
+# or the combination of a \u0065 and a combining grave accent \u0300. They look the same:
+
+# In Unicode, an accent is known as a diacritic Unicode Property, 
+# and you can match it using the rebus value 
+UP_DIACRITIC
+
+
 
 ########################
 library(stringi)
