@@ -201,6 +201,7 @@ library(stringr)
 ## basic
 START
 END
+exactly()
 ANY_CHAR
 %R%  # means then
 
@@ -424,6 +425,62 @@ age_gender
 capture()
 str_match(str, pattern=capture() %R% ...)
 capture(or("A", "B"))  # or is non-capturing groups
+# backreferences: for finding repeated patterns or words.
+# 1. you need to capture() the part of the pattern you want to reference 2. you refer to it with REF1.
+REF1  # up to REF9
+
+# The replacement argument to str_replace() can also include backreferences. 
+# This works just like specifying patterns with backreferences, except the capture happens in the pattern argument, 
+# and the backreference is used in the replacement argument.
+
+# Build pattern to match words ending in "ING"
+pattern <- one_or_more(WRD) %R% "ING" 
+str_view(narratives, pattern)
+
+# Test replacement
+str_replace(narratives, capture(pattern), 
+  str_c("CARELESSLY", REF1, sep = " "))
+
+# One adverb per narrative
+adverbs_10 <- sample(adverbs, 10)
+
+# Replace "***ing" with "adverb ***ing"
+str_replace(narratives, 
+  capture(pattern),
+  str_c(adverbs_10, REF1, sep = " "))  
+
+str_replace("Paris in the the spring",
+             pattern = SPC %R%
+             capture(one_or_more(WRD)) %R%
+             SPC %R%
+             REF1,
+             replacement = str_c(" ", REF1))
+
+# See names with three repeated letters
+repeated_three_times <- capture(WRD) %R% REF1 %R% REF1
+str_view(boy_names, 
+  pattern = repeated_three_times, 
+  match = TRUE)
+
+# See names with a pair of repeated letters
+pair_of_repeated <- capture(WRD)%R%capture(WRD)%R%REF1%R%REF2
+str_view(boy_names, 
+  pattern = pair_of_repeated, 
+  match = TRUE)
+
+# See names with a pair that reverses
+pair_that_reverses <- capture(WRD)%R%capture(WRD)%R%REF2%R%REF1
+str_view(boy_names, 
+  pattern = pair_that_reverses, 
+  match = TRUE)
+
+# See four letter palindrome names
+four_letter_palindrome <- exactly(capture(WRD)%R%capture(WRD)%R%REF2%R%REF1)
+str_view(boy_names, 
+  pattern = four_letter_palindrome, 
+  match = TRUE)
+
+
 
 #e.g
 # Capture part between @ and . and after .
@@ -486,6 +543,17 @@ str_view(narratives, pattern2)
 
 # Pull out pieces
 str_match(narratives, pattern2)
+
+
+# Replace digits with "X"
+str_replace(contact, pattern =DGT, replacement = "X")
+
+# Replace all digits with "X"
+str_replace_all(contact, pattern = DGT, replacement = "X")
+
+# Replace all digits with different symbol
+str_replace_all(contact, pattern = DGT, 
+  replacement = c("X", ".", "*", "_"))
 
 
 ########################
