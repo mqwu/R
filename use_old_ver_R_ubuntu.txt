@@ -1,0 +1,28 @@
+
+
+1. download source code of older version R
+Source code of older versions of R is available here.
+https://cloud.r-project.org/
+
+2. 
+tar -xzf xxx.tar.gz
+sudo apt-get install libreadline6 libreadline6-dev
+sudo apt-get install xorg-dev
+
+
+3. 
+./configure --enable-R-shlib # --prefix=...
+make
+make install
+
+4. 
+In terminal
+>export RSTUDIO_WHICH_R= myPahtTo/bin/R
+>rstudio
+
+
+
+Ref:
+https://www.r-bloggers.com/installing-r-on-ubuntu/
+
+https://stackoverflow.com/questions/26594227/compile-an-older-r-version-and-switch-between-versions-in-ubuntu-and-rstudio
