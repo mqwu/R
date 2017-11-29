@@ -92,6 +92,12 @@
  # Running a Shiny app using a shortcut
  http://rstudio-pubs-static.s3.amazonaws.com/3269_a6682dfda37e411fb5e0e6699495cdc4.html
  
+
+ ## visualize list structure
+ library(data.tree)
+ tree <- as.Node(list)
+ print(tree)
+ print(tree, "v1", "v2")
  
  # Shade tails of a distribution plot
  # --------------------------------------------------------------------------------------
