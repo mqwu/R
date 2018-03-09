@@ -7,6 +7,9 @@
  # Wickham (RStudio)
  http://adv-r.had.co.nz/Style.html#undefined
 
+ # R for DS
+ http://r4ds.had.co.nz/workflow-basics.html
+
  # efficient R
  https://csgillespie.github.io/efficientR/performance.html
  
