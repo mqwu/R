@@ -43,7 +43,7 @@ albums %>%
 anti_join(df1, df2, by = "key")  # only keep df1 cols and keep rows that does not appear in df2
 
 
-### set operations
+### set operations (two set share same vars)
 union(df1, df2)
 intersect(df1, df2)
 setdiff(df1, df2)  # return rows only appear in df1
