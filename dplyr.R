@@ -89,6 +89,11 @@ flight %>%
 	group_by(Month, DayofMonth) %>%
 	tally(sort=TRUE)  # create a variable named n
 
+# Each call to summarise() or tally removes a layer of grouping
+by_vs_am <- mtcars %>% group_by(vs, am)
+by_vs <- by_vs_am %>% summarise(n = n())
+
+
 # n_distinct
 flights %>%
 	group_by(Dest) %>%
