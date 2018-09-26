@@ -228,3 +228,9 @@ glimpse(nycflights)
 # Ordered, grouped summary of nycflights
  nycflights %>% group_by(carrier) %>% summarise(n_flights = n(), avg_delay = mean(arr_delay)) %>%
     arrange(avg_delay)
+
+# filter string contains
+https://sebastiansauer.github.io/dplyr_filter/
+mtcars %>% 
+  filter(str_detect(rowname, "^L"))
+      
