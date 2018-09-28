@@ -12,7 +12,7 @@ setwd("Z:/project/DataMiningUNC/permian/trunk/Src/Adhoc")
 source("tools.R")
 
 # load the required packages and try to install them if they are not available
-reqPackages <- c("tidyverse", "mlr", "corrplot", "lubridate", "stringr")
+reqPackages <- c("tidyverse", "mlr", "corrplot", "lubridate", "stringr", "purrr")
 load_libs(reqPackages)
 
 
@@ -56,6 +56,8 @@ d <- d %>%
 
 # left join
 left_join(A, B, by = c("first_name" = "second_name"))
+left_join(df_primary, df_augment, by = c("key1", "key2"))
+inner_join(df1, df2, by = "key")
 
 # filter string contains
 mtcars %>% 
@@ -101,6 +103,9 @@ sum(is.na(df))  # count
 complete.cases(df)
 df[complete.cases(df), ]  # subset df with complete cases
 
+is_miss <- is.na(x)
+x[is_miss] <- 0
+
 # group by then aggregate
 flights %>%
 	group_by(Dest) %>%  # group_by does not create a copy of data and change the order of the data
@@ -129,4 +134,19 @@ boxplot(df)
 
 #--------------------------------------------------------
 # Modelling
-#-------------------------------------------------------- 
+#--------------------------------------------------------
+# seq_along: loop each col
+for (i in seq_along(df)) {
+  print(median(df[[i]]))
+}       
+
+# function
+rescale01 <- function(x) {
+  # body
+  rng <- range(x, na.rm = TRUE) 
+  (x - rng[1]) / (rng[2] - rng[1])
+}
+
+# apply func to each col and return a list       
+map(df, summary)  # existing function
+map(df, myfun)    # a fun you defined
