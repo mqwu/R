@@ -102,6 +102,8 @@ sum(is.na(df))  # count
 # find rows with no missing values
 complete.cases(df)
 df[complete.cases(df), ]  # subset df with complete cases
+# check each col of df
+sapply(airquality, function(x) sum(is.na(x)))
 
 is_miss <- is.na(x)
 x[is_miss] <- 0
