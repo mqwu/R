@@ -28,7 +28,7 @@ b_path = "Z:/project/Adhoc/data/b.csv"
 d <- read.csv(b_path, header=TRUE, na.strings="N/A")
 
 #d = read.csv(data_user,as.is=TRUE, sep='\t')
-# parse date time
+# parse date time (lubridate)
 d$createtime = parse_date_time(d$createtime, orders="y-m-d H:M:S")
 
 # correct names
