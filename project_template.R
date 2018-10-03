@@ -25,7 +25,7 @@ b_path = "Z:/project/Adhoc/data/b.csv"
 #--------------------------------------------------------
 # Load and processing data
 #-------------------------------------------------------- 
-d <- read.csv(b_path, header=TRUE, na.strings="N/A")
+d <- read.csv(b_path, header=TRUE, na.strings=c("N/A", "-"))
 #d = read.csv(data_user,as.is=TRUE, sep='\t')
 
 # correct names
