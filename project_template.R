@@ -97,13 +97,16 @@ sum(dat$v < 0)
 sum(dat$v == 0)
 sum(duplicated(dat))
 
-# missing data
+## missing data
 sum(is.na(df))  # count
 # find rows with no missing values
 complete.cases(df)
 df[complete.cases(df), ]  # subset df with complete cases
 # check each col of df
 sapply(airquality, function(x) sum(is.na(x)))
+colMeans(is.na(usr))
+mean(is.na(df))
+       
 
 is_miss <- is.na(x)
 x[is_miss] <- 0
