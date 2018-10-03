@@ -97,8 +97,13 @@ sum(dat$v < 0)
 sum(dat$v == 0)
 sum(duplicated(dat))
 
-## missing data
-sum(is.na(df))  # count
+
+## missing values
+round(colMeans(is.na(df))*100, 2) # in perc
+sapply(dat, function(x) sum(is.na(x)))  # count
+sapply(dat, function(x) sum(is.na(x))/nrow(dat))  # proportion
+
+
 # find rows with no missing values
 complete.cases(df)
 df[complete.cases(df), ]  # subset df with complete cases
@@ -122,9 +127,7 @@ corr.M <- cor(x, use="pairwise.complete.obs")
 corrplot(corr.M, type="upper")
 corrplot(corr.M, method="number", type="upper")
 
-# missing values
-sapply(dat, function(x) sum(is.na(x)))  # count
-sapply(dat, function(x) sum(is.na(x))/nrow(dat))  # proportion
+
         
 ## Numerical vars
 # hist
