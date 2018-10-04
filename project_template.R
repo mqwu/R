@@ -139,7 +139,14 @@ plot_Box(dat, x="v1", y="v2", title="vvv")
 boxplot(x, horizontal=True)
 boxplot(df)
 
-
+#--------------------------------------------------------
+# Features
+#--------------------------------------------------------
+# add some time related features
+library(lubridate)
+df$date <- as.Date(df$date)
+df$wkday = wday(df$date, label=TRUE)
+       
 #--------------------------------------------------------
 # Modelling
 #--------------------------------------------------------
