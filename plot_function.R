@@ -444,25 +444,37 @@ ggplot(dat, aes(x=Age, y=value, fill=Sex)) +
 
 #---------------------------------------------------------------------------------------------------------------------
 # bar plot
-plot_bar = function(dat, title=NULL, xlab="", ylab="", fill=FALSE,  xlim=NULL, ylim=NULL){
+plot_bar = function(dat, 
+                    title=NULL, 
+                    xlab="", xlab_angle=0, ylab="", 
+                    xlim=NULL, ylim=NULL,
+                    fill=NULL, dodge = FALSE,  
+                    flip_coord=FALSE) 
+{
   a = names(dat) 
-  
-  if(fill == TRUE) col = a[1]
-  else col = NULL
+  if(!is.null(fill)) {col = fill} else {col = NULL}
   
   g = ggplot(data=dat, aes_string(x=a[1],y=a[2], fill=col))
-  g = g + geom_bar(stat = "identity")
   
+  if(dodge==TRUE) {
+    g = g + geom_bar(stat = "identity", position = 'dodge') 
+  } else {
+    g = g + geom_bar(stat = "identity") 
+  }
+  
+  if (flip_coord == TRUE) g = g + coord_flip()
+  
+  g = g + theme_few() + scale_fill_tableau()
   g = g + ggtitle(title) + xlab(xlab) + ylab(ylab) + 
     theme(
       legend.text = element_text(size=16),
       legend.title = element_text(size=20),
       axis.title.x = element_text(size=24),
       axis.title.y = element_text(size=24),
-      axis.text.x = element_text(angle=0, hjust=0.5, colour='black', size=15),
+      axis.text.x = element_text(angle=xlab_angle, hjust=0.5, colour='black', size=15),
       axis.text.y = element_text(colour="black",size=15),
-      plot.title = element_text(hjust=0.5, lineheight=.8, face="bold", size=28, vjust=2),
-      legend.position="none"
+      plot.title = element_text(hjust=0.5, lineheight=.8, face="bold", size=28, vjust=2)
+      #legend.position="none"
       #legend.justification=c(1,0), legend.position=c(0.95,0),
     )
   return(g)
